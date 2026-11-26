@@ -22,7 +22,7 @@ thp_root = Path("/sys/kernel/mm/transparent_hugepage")
 uffd_path = Path("/proc/sys/vm/unprivileged_userfaultfd")
 boot_path = Path("/proc/sys/kernel/random/boot_id")
 policy_values = {"disabled": "never", "always": "always", "khugepaged": "madvise", "selective": "madvise"}
-defrag_schemes = ("always":"always", "defer":"defer", "defer+madvise":"defer+madvise", "madvise":"madvise", "never":"never")
+defrag_schemes = {"always":"always", "defer":"defer", "defer+madvise":"defer+madvise", "madvise":"madvise", "never":"never"}
 # [CONFIGURATION] ENDs ==================
 
 
