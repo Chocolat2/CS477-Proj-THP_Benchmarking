@@ -133,7 +133,7 @@ def main() -> int:
                 if policy not in policy_values:
                     raise ValueError("Unknown policy")
                 write_setting(thp_root / "enabled", policy_values[policy])
-                defrag = command["defrag_scheme"]
+                defrag = command["defrag_schemes"]
                 if defrag not in defrag_schemes:
                     raise ValueError("Unknown defrag scheme")
                 write_setting(thp_root / "defrag", defrag_schemes[policy])
