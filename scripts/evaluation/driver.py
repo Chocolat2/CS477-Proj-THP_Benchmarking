@@ -134,7 +134,7 @@ def main() -> int:
     parser.add_argument("--binary", action = "append", default = [], metavar = "TEST=PATH")
     parser.add_argument("--test", nargs = "+", choices = test_names)
     parser.add_argument("--policy", nargs = "+", choices = policy_names, default = list(policy_names))
-    parser.add_argument("--defrag", nargs = "+", choices = defrag_schemes, default = list(defrag_schemes))
+    parser.add_argument("--defrag_schemes", nargs = "+", choices = defrag_schemes, default = list(defrag_schemes))
     parser.add_argument("--pattern", nargs = "+", choices = pattern_names, default = list(pattern_names))
     parser.add_argument("--use_zero_page", nargs = "+", choices = (0, 1), default = list((1, 0)))
     parser.add_argument("--shrink_underused", nargs = "+", choices = (0, 1), default = list((1, 0)))
