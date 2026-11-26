@@ -28,7 +28,7 @@ from scripts.commons import load_config, log, project_path, project_root
 # [CONFIGURATION] =======================
 test_names = ("correctness", "matrix", "chase", "hash", "allocation")
 policy_names = ("disabled", "always", "khugepaged", "selective")
-defrag_schemes = ("always", "defer", "defer+madvise", "madvise", "never")
+defrag_schemes_names = ("always", "defer", "defer+madvise", "madvise", "never")
 pattern_names = ("dense", "sparse", "random", "phase")
 metric_names = ("active_total_ns", "total_ns", "cold_ns", "steady_ns", "rss_kib", "anon_huge_kib", "collapse_ns")
 # [CONFIGURATION] ENDs ==================
@@ -134,7 +134,7 @@ def main() -> int:
     parser.add_argument("--binary", action = "append", default = [], metavar = "TEST=PATH")
     parser.add_argument("--test", nargs = "+", choices = test_names)
     parser.add_argument("--policy", nargs = "+", choices = policy_names, default = list(policy_names))
-    parser.add_argument("--defrag_schemes", nargs = "+", choices = defrag_schemes, default = list(defrag_schemes))
+    parser.add_argument("--defrag_schemes", nargs = "+", choices = defrag_schemes_names, default = list(defrag_schemes_names))
     parser.add_argument("--pattern", nargs = "+", choices = pattern_names, default = list(pattern_names))
     parser.add_argument("--use_zero_page", nargs = "+", choices = (0, 1), default = list((1, 0)))
     parser.add_argument("--shrink_underused", nargs = "+", choices = (0, 1), default = list((1, 0)))
@@ -252,7 +252,7 @@ def main() -> int:
             sample_path = destination / f"{number:05d}-{name}-{policy}-{pattern}-{allocator}.json"
             sample["result_file"] = sample_path.name
             command = [str(binaries[name]), "--results", str(sample_path), "--policy", policy,
-                       "--pattern", "dense" if name == "allocation" else pattern, "--defrag_schemes", defrag_scheme, "--use_zero_page", use_zero_page, "--shrink_underused", shrink_underused, "--regions", str(args.regions),
+                       "--pattern", "dense" if name == "allocation" else pattern, "--defrag_scheme", defrag_scheme, "--use_zero_page", use_zero_page, "--shrink_underused", shrink_underused, "--regions", str(args.regions),
                        "--iterations", str(args.iterations), "--threads", str(args.threads),
                        "--wait-ms", str(args.wait_ms), "--seed", str(args.seed + repetition)]
             sample["command"] = command

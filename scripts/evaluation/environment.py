@@ -136,7 +136,7 @@ def main() -> int:
                 defrag = command["defrag_schemes"]
                 if defrag not in defrag_schemes:
                     raise ValueError("Unknown defrag scheme")
-                write_setting(thp_root / "defrag", defrag_schemes[policy])
+                write_setting(thp_root / "defrag", defrag_schemes[defrag])
                 use_zero_page = command["use_zero_page"]
                 write_setting(thp_root / "use_zero_page", use_zero_page)
                 shrink_underused = command["shrink_underused"]
