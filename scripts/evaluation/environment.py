@@ -40,8 +40,9 @@ def write_setting(path: Path, value: str) -> None:
     """
     Write one allowlisted setting and check that the kernel accepted it.
     """
-    path.write_text(value + "\n")
-    if read_setting(path) != value:
+    str_val = f"{value}"
+    path.write_text(str_val + "\n")
+    if read_setting(path) != str_val:
         raise RuntimeError(f"Kernel did not accept {path} = {value}")
 
 
@@ -62,7 +63,7 @@ def restore(journal: Path, allowed: set[str]) -> None:
             raise RuntimeError("Recovery journal contains an unexpected setting")
         try:
             if read_setting(Path(name)) != value:
-                write_setting(Path(name), value)
+                write_setting(Path(name), str(value))
         except OSError as error:
             failures.append(f"{name}: {error}")
         except RuntimeError as error:
@@ -136,11 +137,11 @@ def main() -> int:
                 defrag = command["defrag_scheme"]
                 if defrag not in defrag_schemes:
                     raise ValueError("Unknown defrag scheme")
-                write_setting(thp_root / "defrag", defrag_schemes[defrag])
+                write_setting(thp_root / "defrag", str(defrag_schemes[defrag]))
                 use_zero_page = command["use_zero_page"]
-                write_setting(thp_root / "use_zero_page", use_zero_page)
+                write_setting(thp_root / "use_zero_page", str(use_zero_page))
                 shrink_underused = command["shrink_underused"]
-                write_setting(thp_root / "shrink_underused", shrink_underused)
+                write_setting(thp_root / "shrink_underused", str(shrink_underused))
                 for path in size_paths:
                     write_setting(path, "inherit" if path.parent.name == "hugepages-2048kB" else "never")
                 if command.get("enable_userfaultfd", False):
