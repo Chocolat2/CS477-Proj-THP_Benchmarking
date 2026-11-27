@@ -26,7 +26,7 @@
     "regions": 32,
     "iterations": 100,
     "threads": 8,
-    "repetitions": 5,
+    "repetitions": 1,
     "wait_ms": 0,
     "seed": 477,
     "timeout_seconds": 120,
