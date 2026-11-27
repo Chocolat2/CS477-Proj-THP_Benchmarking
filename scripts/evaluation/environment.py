@@ -129,7 +129,7 @@ def main() -> int:
             print(json.dumps({"ready": True, "original": original}), flush = True)
             for line in sys.stdin:
                 command = json.loads(line)
-                policy = command["policy1"]
+                policy = command["policy"]
                 if policy not in policy_values:
                     raise ValueError("Unknown policy")
                 write_setting(thp_root / "enabled", policy_values[policy])
