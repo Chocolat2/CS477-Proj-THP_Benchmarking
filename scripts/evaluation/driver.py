@@ -145,7 +145,7 @@ def main() -> int:
     parser.add_argument("--regions", type = int, default = defaults.get("regions", 32))
     parser.add_argument("--iterations", type = int, default = defaults.get("iterations", 100))
     parser.add_argument("--threads", type = int, default = defaults.get("threads", 8))
-    parser.add_argument("--repetitions", type = int, default = defaults.get("repetitions", 5))
+    parser.add_argument("--repetitions", type = int, default = defaults.get("repetitions", 1))
     parser.add_argument("--cpu", type = int, help = "Pin each C process and its threads to an allowed CPU")
     parser.add_argument("--wait-ms", type = int, default = defaults.get("wait_ms", 0))
     parser.add_argument("--seed", type = int, default = defaults.get("seed", 477))
