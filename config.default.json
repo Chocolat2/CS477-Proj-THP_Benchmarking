@@ -24,7 +24,7 @@
   "evaluation": {
     "results_path": "./results",
     "regions": 32,
-    "iterations": 2,
+    "iterations": 1,
     "threads": 8,
     "repetitions": 1,
     "wait_ms": 0,
