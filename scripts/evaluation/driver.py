@@ -137,7 +137,7 @@ def main() -> int:
     parser.add_argument("--defrag_schemes", nargs = "+", choices = defrag_schemes_names, default = list(defrag_schemes_names))
     parser.add_argument("--pattern", nargs = "+", choices = pattern_names, default = list(pattern_names))
     parser.add_argument("--use_zero_page", nargs = "+", choices = (0, 1), default = list((1, 0)))
-    parser.add_argument("--shrink_underused", nargs = "+", choices = (0, 1), default = list(([1])))
+    parser.add_argument("--shrink_underused", nargs = "+", choices = (0, 1), default = list((1, 0)))
     parser.add_argument("--allocator", nargs = "+", choices = ("glibc", "tcmalloc"), default = ["glibc", "tcmalloc"])
     parser.add_argument("--tcmalloc", type = Path, default = defaults.get("tcmalloc_library"))
     parser.add_argument("--environment", choices = ("managed", "observe"), default = "managed")
