@@ -19,7 +19,7 @@
     "region_bytes": 2097152,
     "density_threshold_pages": 384,
     "run_threshold_pages": 256,
-    "collapse_retries": 3
+    "collapse_retries": 1
   },
   "evaluation": {
     "results_path": "./results",
