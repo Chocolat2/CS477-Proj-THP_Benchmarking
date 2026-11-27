@@ -134,14 +134,21 @@ def main() -> int:
                 if policy not in policy_values:
                     raise ValueError("Unknown policy")
                 write_setting(thp_root / "enabled", policy_values[policy])
+
+                # Manages Mem Defrag schemes
                 defrag = command["defrag_scheme"]
                 if defrag not in defrag_schemes:
                     raise ValueError("Unknown defrag scheme")
                 write_setting(thp_root / "defrag", str(defrag_schemes[defrag]))
+
+                # By default kernel tries to use huge, PMD-mappable zero page on read page fault to anonymous mapping. Default: 1, Disable: 0
                 use_zero_page = command["use_zero_page"]
                 write_setting(thp_root / "use_zero_page", str(use_zero_page))
+
+                # Skipping this param, unable to write to /sys/kernel/mm/transparent_hugepage/shrink_underused 
                 shrink_underused = command["shrink_underused"]
-                write_setting(thp_root / "shrink_underused", str(shrink_underused))
+                # write_setting(thp_root / "shrink_underused", str(shrink_underused))
+
                 for path in size_paths:
                     write_setting(path, "inherit" if path.parent.name == "hugepages-2048kB" else "never")
                 if command.get("enable_userfaultfd", False):
