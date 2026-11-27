@@ -209,7 +209,11 @@ def main() -> int:
                     for allocator in (args.allocator if name == "allocation" else ["container"]):
                         for defrag_scheme in args.defrag_schemes:
                             for use_zero_page in args.use_zero_page:
+                                skip_shrink = False
                                 for shrink_underused in args.shrink_underused:
+                                    if skip_shrink:
+                                        continue
+                                    skip_shrink = True
                                     schedule.append((name, policy, pattern, defrag_scheme, use_zero_page, shrink_underused, allocator, repetition))
     if not schedule:
         parser.error("No compatible test/policy combinations selected")
@@ -249,11 +253,10 @@ def main() -> int:
                 if reply.get("applied") != policy:
                     raise RuntimeError("Environment supervisor failed to apply the requested policy")
             sample["settings"] = host_settings()
-            sample_path = destination / f"{number:05d}-{name}-{policy}-{pattern}-{allocator}.json"
+            sample_path = destination / f"{number:05d}-{name}-{policy}-{pattern}-{allocator}-{defrag_scheme}-{use_zero_page}-{shrink_underused}.json"
             sample["result_file"] = sample_path.name
             command = [str(binaries[name]), "--results", str(sample_path), "--policy", policy,
                        "--pattern", "dense" if name == "allocation" else pattern,
-                       #"--defrag_scheme", str(defrag_scheme), "--use_zero_page", str(use_zero_page), "--shrink_underused", str(shrink_underused),
                        "--regions", str(args.regions),
                        "--iterations", str(args.iterations), "--threads", str(args.threads),
                        "--wait-ms", str(args.wait_ms), "--seed", str(args.seed + repetition)]
@@ -265,7 +268,7 @@ def main() -> int:
             if allocator == "tcmalloc":
                 environment["LD_PRELOAD"] = str(library)
                 environment["EVALUATION_ALLOCATOR_LIBRARY"] = str(library)
-            log("evaluation", "INFO", f"{name}: {policy}/{pattern}/{allocator}, repetition {repetition + 1}/{args.repetitions}, {args.iterations} iters")
+            log("evaluation", "INFO", f"{name}: {policy}/{pattern}/{allocator}/{defrag_scheme}/{use_zero_page}/{shrink_underused}, repetition {repetition + 1}/{args.repetitions}, {args.iterations} iters")
             parent = os.getpid()
             started = time.monotonic_ns()
             def child_setup() -> None:
