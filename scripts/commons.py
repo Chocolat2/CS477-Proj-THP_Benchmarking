@@ -24,7 +24,7 @@ project_root = Path(__file__).resolve().parents[1]
 project_config = ("config.default.json", "config.local.json")  # relative to project_root
 # LOGGING (This is the only place to hard set logging configuration)
 logging_fancy = True  # enable ANSI colour codes in log output
-logging_colours = {"INFO": 34, "WARN": 33, "OK": 32, "ERROR": 31}
+logging_colours = {"INFO": 34, "WARN": 33, "OK": 32, "ERROR": 31, "DEBUG": 36}
 # =======================================
 
 
