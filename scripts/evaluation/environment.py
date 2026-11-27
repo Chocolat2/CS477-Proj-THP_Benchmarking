@@ -129,11 +129,11 @@ def main() -> int:
             print(json.dumps({"ready": True, "original": original}), flush = True)
             for line in sys.stdin:
                 command = json.loads(line)
-                policy = command["policy"]
+                policy = command["policy1"]
                 if policy not in policy_values:
                     raise ValueError("Unknown policy")
                 write_setting(thp_root / "enabled", policy_values[policy])
-                defrag = command["defrag_schemes"]
+                defrag = command["defrag_scheme"]
                 if defrag not in defrag_schemes:
                     raise ValueError("Unknown defrag scheme")
                 write_setting(thp_root / "defrag", defrag_schemes[defrag])

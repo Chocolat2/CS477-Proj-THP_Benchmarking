@@ -251,7 +251,7 @@ def main() -> int:
             sample["settings"] = host_settings()
             sample_path = destination / f"{number:05d}-{name}-{policy}-{pattern}-{allocator}.json"
             sample["result_file"] = sample_path.name
-            command = [str(binaries[name]), "--results", str(sample_path), "--policy", policy,
+            command = [str(binaries[name]), "--results", str(sample_path), "--policy1", policy,
                        "--pattern", "dense" if name == "allocation" else pattern, "--defrag_scheme", defrag_scheme, "--use_zero_page", use_zero_page, "--shrink_underused", shrink_underused, "--regions", str(args.regions),
                        "--iterations", str(args.iterations), "--threads", str(args.threads),
                        "--wait-ms", str(args.wait_ms), "--seed", str(args.seed + repetition)]
