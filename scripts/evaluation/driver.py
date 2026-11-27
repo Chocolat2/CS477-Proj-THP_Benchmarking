@@ -252,6 +252,7 @@ def main() -> int:
                 reply = supervisor_reply(supervisor)
                 if reply.get("applied") != policy:
                     raise RuntimeError("Environment supervisor failed to apply the requested policy")
+            log("evaluation","DEBUG", f"THP parameters changed")
             sample["settings"] = host_settings()
             sample_path = destination / f"{number:05d}-{name}-{policy}-{pattern}-{allocator}-{defrag_scheme}-{use_zero_page}-{shrink_underused}.json"
             sample["result_file"] = sample_path.name
@@ -324,6 +325,7 @@ def main() -> int:
                     if child.poll() is None:
                         os.killpg(child.pid, signal.SIGKILL)
                     child.wait()
+                    log("evaluation", "DEBUG", "child process finished")
                     child = None
             print(sample_path.with_suffix(".log").read_text(), end = "", flush = True)
             save_json(destination / "manifest.json", manifest)
